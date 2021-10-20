@@ -1,0 +1,60 @@
+<%- include('../../partials/header.ejs') %>
+<%- include('../../partials/navbar.ejs') %>
+<body>
+<div class="container">
+    <hr>
+    <h2>Usuários</h2>
+    <hr>
+    <div class="accordion" id="Article">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#newArticle" aria-expanded="true" aria-controls="collapseOne">
+                    Novo Usuário
+                </button>
+            </h2>
+            <div id="newArticle" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#Article">
+                <div class="accordion-body">
+                    <%- include('./create.ejs') %>                             
+                </div>
+            </div>
+        </div>
+    </div> 
+    <hr>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>e-mail</th>                
+                <th>Ações</th>
+            </tr>
+        </thead>
+    <% users.forEach( (user) => {%>
+        <tr>
+            <td> <a href="" class="text-secondary"> <%=user.id%> </a></td>
+            <td> <a href="" class="text-secondary"> <%=user.name%> </a></td>
+            <td><a href="" class="text-secondary"> <%=user.email%> </a></td>            
+            <td> 
+                <form action="/admin/user/edit/<%= user.id %>" method="get" style="display: inline">                                      
+                    <button class="btn btn-outline-warning">Editar</button>
+                </form>                    
+                <form action="/user/delete" method="post" style="display: inline" onsubmit="confirmDeletion(event)">
+                    <input type="hidden" name="id" value="<%=user.id%>">
+                    <button class="btn btn-outline-danger" >Deletar</button>
+                </form>                                        
+            </td>            
+        </tr>    
+    <%})%>
+    </table>       
+</div>
+<%- include('../../partials/footer.ejs') %>
+<script>
+    const confirmDeletion = (event) => {        
+        var decision = confirm("Tem certeza que deseja deletar esse artigo?")
+        if(!decision){
+            event.preventDefault();
+        }
+    }  
+</script>
+</body>
+</html>

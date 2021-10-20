@@ -1,0 +1,67 @@
+<%- include('../../partials/header.ejs') %>
+<%- include('../../partials/navbar.ejs') %>
+<div class="container">
+    <hr>
+    <h2>Editar Artigo</h2>
+    <hr>
+    <form method="POST" action="/articles/update" class="needs-validation" novalidate>
+        <input type="hidden" name="id" value="<%= article.id %>">        
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
+                <input type="text" class="form-control" name="title" id="title" placeholder="Defina o titulo do Artigo" value="<%= article.title %>" required>               
+            </div>               
+            <div class="col-md-12 mb-3">
+                <textarea class="form-control" name="body" id="body" placeholder="Digite aqui seu texto"  required> <%- article.body %> </textarea>
+            </div>            
+            <div class="input-group is-invalid mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="categories">Categorias</label>
+                </div>
+                <select class="custom-select form-control" id="categories" name="category" required>
+                    <option selected disabled value="">Escolha...</option>                
+                    <% categories.forEach( (category) => {%>
+                        <%if(category.id == article.categoryId){%>
+                            <option value="<%= category.id %>" selected><%= category.title %></option>
+                        <%}else{%>
+                            <option value="<%= category.id %>"><%= category.title %></option>
+                        <%}%>
+                    <%})%>                         
+                </select>                
+            </div>       
+            <button class="btn btn-success">Atualizar</button>
+        </div>    
+    </form>
+
+</div>
+<%- include('../../partials/footer.ejs') %>
+<script src="/tinymce/js/tinymce/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        language: 'pt_BR',
+        selector:"#body",
+        plugins: [
+            'advList autolink link image lists print preview hr searchreplace wordcount fullscreen insertdatetime media save table paste emoticons'
+        ],
+
+    });
+
+
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+</script>

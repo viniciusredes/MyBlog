@@ -1,0 +1,45 @@
+<%- include('../../partials/header.ejs') %>
+<%- include('../../partials/homenavbar.ejs') %>
+<body>   
+    <div class="container">        
+        <br>
+        <div class="jumbotron alert alert-secondary">
+            <br>
+            <h1 class="display-4">Bem-vindo ao My Blog</h1>
+            <p class="lead">Seu espaço de tecnologia e aleatoriedades</p>
+            <br>
+        </div>        
+        <% result.articles.rows.forEach(article => { %>
+            <div class="card">
+                <div class="card-header alert alert-secondary">
+                    <h2 class="text-black-50"><%= article.title %></h2>
+                </div>
+                <div class="card-body">
+                    <a href="/<%= article.slug %>" class="btn btn-primary text-white">Ler artigo</a>
+                </div>
+            </div>
+            <br>
+        <% }) %>        
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+              <% if(result.page > 1){ %>
+              <li class="page-item">
+                <a class="page-link" href="/admin/articles/page/<%= result.page - 1 %>" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <% } %>                           
+              <li class="page-item"><a class="page-link" href="/admin/articles/page/<%= result.page%>"><%= result.page %></a></li>             
+              <% if(result){ %>
+              <li class="page-item">
+                <a class="page-link" href="/admin/articles/page/<%= result.page + 1 %>" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+              <% } %>
+            </ul>
+        </nav>        
+    </div>
+<%- include('../../partials/footer.ejs') %>
+</body>
+</html>

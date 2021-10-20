@@ -1,0 +1,31 @@
+
+<div class="container mt-3">
+    <form action="/users/create" method="POST" class="needs-validation" novalidate>
+        <input class="form-control mt-3" name="name" type="name" placeholder="Insira seu Nome Completo" required>
+        <input class="form-control mt-3" name="email" type="email" placeholder="Insira seu email@exemplo.com" required>
+        <input class="form-control mt-3" name="password" type="password" placeholder="Insira sua senha" required>
+        <input class="form-control mt-3" name="confirmpassword" type="password" placeholder="Confirme sua senha" required>
+        <button type="submit" class="btn btn-primary btn-block mt-3">Cadastrar novo Usuário</button>
+    </form>
+</div>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+</script>
